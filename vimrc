@@ -54,10 +54,10 @@ hi Cursorline guibg=Grey40
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-"Kepmapppings
+"Keymapppings
 
 " map ,. to insert : at end of line and start new line
-inoremap ,. <ESC><S-a>:<CR> 
+inoremap ,. <ESC><S-a>:<CR>
 
 "Map jk to escape, much nicer
 inoremap jk <esc>
@@ -132,10 +132,15 @@ au BufNewFile,BufRead *.py
 """""""""""""""""""""""""""
 "tex standards
 "
+
+"autocmd BufNewFile,BufRead *.tex inoremap <buffer>
+
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> .- \
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> beq<space> \begin{equation}<CR><CR>\end{equation}<UP><TAB>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> /= {}<LEFT>
-autocmd BufNewFile,BufRead *.tex inoremap <buffer> bef<space> \begin{figure}<CR><CR>\end{figure}<UP><TAB>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> bef<space> \begin{figure}[H]<CR><CR><CR>\end{figure}<UP><TAB>\label{fig:}<UP><TAB>\includegraphics[width=\linewidth]{}<LEFT>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> .-it \textit{}<LEFT>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> .-bf \textbf{}<LEFT>
 
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> fr<space> \frac{}{}<LEFT><LEFT><LEFT>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> /= {}<LEFT>
