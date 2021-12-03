@@ -82,9 +82,9 @@ map <F2> :w ! chmod 755 % ;./%<CR>
 "Compile c++
 map <F3> :w ! g++ ./% -o %:r<CR>
 "Compile c 
-map <F4> :w ! gcc ./% -o %:r 
+map <F4> :w ! gcc ./% -o %:r -lm
 "Run python 
-map <F5> : !python3 ./%<CR>
+map <F5> :w ! python3 ./% <CR>
 
 "Run current executable 
 map <F6> : ! ./%:r<CR>
@@ -127,16 +127,41 @@ au BufNewFile,BufRead *.py
 	\set fileformat=unix
 	\match BadWhitespace /\s\+$/	
 
+
+""""""""""""""""""""""""""""""""""""
+"c standard
+au BufNewFile,BufRead *.c
+	\set tabstop=4
+	\set softtabstop=4
+	\set shiftwidth=4
+	\set textwidth=79
+	\set expandtab
+	\set autoindent
+	\set fileformat=unix
+	\match BadWhitespace /\s\+$/	
+
+
+
+
+
 """""""""""""""""""""""""""
 """"""""""""""""""""""""""""
 """""""""""""""""""""""""""
 "tex standards
 "
+inoremap <expr> <Tab> search('\%#[]>)}]', 'n') ? '<Right>' : '<Tab>'
 
 "autocmd BufNewFile,BufRead *.tex inoremap <buffer>
 
+autocmd BufNewFile,BufRead *.tex set tabstop=4
+autocmd BufNewFile,BufRead *.tex set softtabstop=4
+autocmd BufNewFile,BufRead *.tex set shiftwidth=4
+"autocmd BufNewFile,BufRead *.tex set expandtab
+
+
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> .- \
-autocmd BufNewFile,BufRead *.tex inoremap <buffer> beq<space> \begin{equation}<CR><CR>\end{equation}<UP><TAB>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> beq<space> \begin{equation}<CR><CR><BS>\end{equation}<UP><TAB>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> besp<space> \begin{equation}<CR><CR><BS>\end{equation}<UP><TAB>\begin{split}<CR><CR><BS>\end{split}<UP><TAB><TAB>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> /= {}<LEFT>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> bef<space> \begin{figure}[H]<CR><CR><CR>\end{figure}<UP><TAB>\label{fig:}<UP><TAB>\includegraphics[width=\linewidth]{}<LEFT>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> .-it \textit{}<LEFT>
@@ -144,6 +169,20 @@ autocmd BufNewFile,BufRead *.tex inoremap <buffer> .-bf \textbf{}<LEFT>
 
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> fr<space> \frac{}{}<LEFT><LEFT><LEFT>
 autocmd BufNewFile,BufRead *.tex inoremap <buffer> /= {}<LEFT>
-autocmd BufNewFile *.tex so /home/henrik/Documents/umu/tex_template_vimheader.txt
+autocmd BufNewFile *.tex so ~/.tex_template_vimheader.txt
 autocmd BufNewFile *.tex execute "normal kk"
 autocmd BufNewFile *.tex exe "1," . 10 . "g/title{.*/s//title{" .expand("%") "}"
+autocmd BufNewFile,BufRead *.tex inoremap <expr> öä getline('.')[col('.')-1] =~? '[]>)}''"`]' ? '<Right>' : 'öä'
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> ^ ^{}<LEFT>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> _ _{}<LEFT>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> umn ^{\mu\nu}
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> dmn _{\mu\nu}
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> mu \mu
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> nu \nu
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> besp<space> \begin{split}<CR><CR><BS>\end{split}<UP><TAB>
+autocmd BufNewFile,BufRead *.tex inoremap <buffer> () \left(\right)<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+"autocmd BufNewFile,BufRead *.tex inoremap <buffer>
+
+"autocmd BufNewFile,BufRead *.tex inoremap <expr> <Tab> search('\%#[]>)}]', 'n') ? '<Right>' : '<Tab>'
+"source ~/.vim/tabscript.vim
+
